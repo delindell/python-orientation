@@ -9,5 +9,4 @@ print(word_definitions["Awesome"])
 print(word_definitions["Creative"])
 
 for word, definition in word_definitions.items():
-    print('The definition of %s is %s' % (word, definition))
-
+    print(f'The definition of {word} is {definition}')
