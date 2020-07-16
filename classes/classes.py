@@ -23,3 +23,26 @@ linda = Employee('Linda', 'Boss', '01/23/1999')
 print(linda.title)
 
 linda.payEmployee()
+
+print(linda.__dict__)
+
+class Company:
+
+    def __init__(self, name, date, product):
+        self.name = name
+        self.date_founded = date
+        self.product = product
+        self.employees = []
+    
+    def addEmployees(self, employees):
+        self.employees.extend(employees)
+
+    def __str__(self):
+        return f'{self.name} makes {self.product}'
+
+widget_co = Company('Widget Co', '7/16/2020', 'the finest widgets')
+print(widget_co)
+
+widget_co.addEmployees([fred])
+
+print(widget_co.employees)
