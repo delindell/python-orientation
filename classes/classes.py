@@ -1,30 +1,68 @@
 
 # Blueprint / machine / recipe / template for making instance objects
+
+# Base or parent class
 class Employee:
-    
-    # We don't execute this dunder method
-    def __init__(self, name, title, start_date):
+    def __init__(self, name=''):
         self.name = name
-        self.title = title
-        self.start_date = start_date
+        self.title = ''
+        self.start_date = ''
 
     def payEmployee(self):
         print(f'we {self.name} pay rent now')
 
+    def take_vacation(self):
+        print(f'{self.name} takes a nice paid vacation')
+
     def __str__(self):
         return f"this is an employee name {self.name}"
 
+
+
+# Child classes or derived
+class ConstractEmployee(Employee):
+    
+    # We don't execute this dunder method
+    def __init__(self, name='', wage=0):
+        # call parents __init__
+        super().__init__(name)
+        self.hourly_wage = wage
+
+    # method overridding
+    def take_vacation(self):
+        print(f'{self.name} took time off')
+
+    
+
+class SalariedEmployee(Employee):
+    
+    # We don't execute this dunder method
+    def __init__(self, name, wage=0):
+        super().__init__(name)
+        self.hourly_wage = wage
+
+    # def payEmployee(self):
+    #     print(f'we {self.name} pay rent now')
+
+    # def __str__(self):
+    #     return f"this is an employee name {self.name}"
+
+
 # An instance is a combo of predictable/repeated properties with unique values
-fred = Employee("fred", "supervisor", "01/02/2020")
+fred = SalariedEmployee("fred")
+fred.take_vacation()
 # fred's value is an object
 print(fred)
 
-linda = Employee('Linda', 'Boss', '01/23/1999')
-print(linda.title)
+bubbs = ConstractEmployee('Bubba')
+bubbs.take_vacation()
 
-linda.payEmployee()
+# linda = Employee('Linda', 'Boss', '01/23/1999')
+# print(linda.title)
 
-print(linda.__dict__)
+# linda.payEmployee()
+
+# print(linda.__dict__)
 
 class Company:
 
@@ -45,4 +83,36 @@ print(widget_co)
 
 widget_co.addEmployees([fred])
 
-print(widget_co.employees)
+# print(widget_co.employees)
+
+class Product():
+
+    def __init__(self):
+        # self.price = 0 <= we dont need this now
+        self.title = ''
+        self.desription = ''
+
+    # decorator (getter)
+    @property
+    def price(self):
+        try:
+            return self.__price
+        except AttributeError:
+            return 0
+
+    # setter
+    @price.setter
+    def price(self, new_price):
+        if type(new_price) is float:
+            self.__price = new_price
+        else:
+            raise TypeError('please provide a floating point value for price')
+
+
+
+kite = Product()
+# kite.price = 14.99
+kite.title = 'A red kite'
+kite.desription = 'Flies forever'
+kite.price = 2.99
+print(kite.price)
